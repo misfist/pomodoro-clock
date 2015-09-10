@@ -13,6 +13,12 @@ $(document).ready(function() {
     // Hide pause button (until after timer started)
     pauseButton.hide();
 
+    // Apply field styling (bootstrap-touchspin.js)
+
+    fieldStyling( 'work-time', 15, 30 );
+
+    fieldStyling( 'break-time', 5, 10 );
+
     // Display minutes in timer
     updateTimerDisplay( formatTime( convertToSeconds( workTimeField.prop( 'value' ) ) ) );
 
@@ -254,6 +260,16 @@ $(document).ready(function() {
 
         $( '#timer-inner' ).css( 'height', percentRemaining + '%' );
 
+    }
+
+    // Add field styling
+    function fieldStyling( name, min, max ) {
+        $("input[name='" + name + "']").TouchSpin({
+            buttondown_class: "btn btn-link",
+            buttonup_class: "btn btn-link",
+            min: min,
+            max: max
+        });
     }
 
 

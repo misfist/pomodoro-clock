@@ -3,14 +3,14 @@
 
 // Variables
 
-$primary: #2F4550;
-$primary-dark: #2D2D2D;
-$primary-light: #989898;
-$secondary: #677743;
-$secondary-dark: #434343;
-$secondary-light: #E2E2E1;
-$tertiary: $secondary;
-$accent: #B94019;
+$primary: #675B69;
+$primary-dark: #9A9C87;
+$primary-light: #B9B9B9;
+$secondary: #6E7179;
+$secondary-dark: #5E626B;
+$secondary-light: #B4AEA1;
+$tertiary:  #A0998A;
+$accent: #675B69;
 
 $white: #fff;
 $black: #333;
@@ -21,7 +21,7 @@ $sans-serif: sans-serif;
 $heading: 'Roboto', 'Helvetica', Arial, sans-serif;
 $body-text: $sans-serif;
 
-$text-color: $white;
+$text-color: $black;
 
 
 // RWD BREAKPOINTS 
@@ -49,12 +49,6 @@ $lg: 1200px; //Large Devices Large Desktops and Up
 }
 
 // Extends
-%header {
-  font-family: $heading;
-  color: $white;
-  text-shadow: 1px 1px 1px $black;
-  text-shadow: -1px -1px -1px $primary-light;
-}
 
 // CLEARFIX
 // for old markup w/clearfix class:
@@ -78,12 +72,49 @@ $lg: 1200px; //Large Devices Large Desktops and Up
     background: transparentize($primary-dark, .7);
 }
 
+%text-shadow {
+  text-shadow: 1px 1px 1px $black;
+  text-shadow: -1px -1px -1px $primary-light;
+}
+
+%header {
+  font-family: $heading;
+  color: $primary;
+}
+
+%fade-in {
+  -webkit-transition: background 2s linear;
+  -moz-transition: background 2s linear;
+  -o-transition: background 2s linear;
+  transition: background 2s linear;
+}
+
 
 html,
 body {
   height: 100%;
-  font-family: $body-text;  
+  font-family: $body-text;
+  transition: all .2s ease-in-out;
 }
+
+body {
+  background-color: $primary-light;
+
+  background-position: center center;
+  background-size: cover;
+
+  &.work-timer {
+    @extend %fade-in;
+    background-image: linear-gradient(90deg, rgba($white, .5) 100%, transparent 90%), url(http://sandbox.misfist.com/pomodoro-clock/assets/images/zen-garden.jpg);
+  }
+  
+  &.break-timer {
+    @extend %fade-in;
+    background-image: linear-gradient(90deg, rgba($white, .7) 100%, transparent 90%), url(http://sandbox.misfist.com/pomodoro-clock/assets/images/relax.jpg);
+  }
+
+}
+
 
 // Block Elements
 h1,
@@ -106,6 +137,10 @@ section {
   padding-bottom: 2em;
 }
 
+article {
+  text-align: center;
+}
+
 // Main Sections
 
 .container {
@@ -121,28 +156,6 @@ section {
   }
 }
 
-.timer-outer {
-  position: relative;
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  border: 5px solid $primary;
-  overflow: hidden;
-
-  .timer-inner {
-    width: 100%;
-    background-color: gray;
-  }
-
-  .counter-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%)
-  }
-}
-
-
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
 
@@ -157,12 +170,9 @@ section {
 // Home Section
 #home {
 
-  padding-top: 60px;
+  padding-top: 80px;
 
-  header {
-    @extend %text-background;
-    padding: 20px;
-  }
+  header {}
 
   h1,
   h2 {
@@ -183,10 +193,44 @@ section {
 }
 
 @media only screen and (min-width : 768px) {
-  #home {
-    padding-top: 150px;
+  #home {}
+}
+
+// Form controls
+
+.controls,
+.buttons {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+// Counter styles
+.timer-outer {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: 5px solid $accent;
+  overflow: hidden;
+
+  .timer-inner {
+    width: 100%;
+    background-color: rgba( $tertiary, .5 );
+  }
+
+  .counter-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    @extend %header;
+    color: $primary;
+    font-size: 40px;
   }
 }
+
 
 footer {
 
@@ -215,25 +259,21 @@ p + p {
   padding-top: 20px;
 }
 
-figure {
-
-  @include breakpoint(xs) {
-    img {
-      margin: 0 auto;
-    }
-  }
-
+label {
+  color: $secondary;
 }
 
 .btn {
   box-shadow: 1px 1px 0px 0px $primary-light;
   transition: all .2s ease-in-out;
   @extend %header;
-  color: $white;
+  font-size: 18px;
+  color: $text-color;
+  border-color: $primary;
 
   a,
   a:link {
-    color: $white;
+    color: $text-color;
     &:hover,
     &:focus {
         text-decoration: none;
@@ -241,9 +281,55 @@ figure {
   }
 
   &:hover,
-  &:focus {
-    color: $white;
+  &:focus,
+  &:active {
+    color: $text-color;
+    border-color: $primary;
     //transform: scale(1.1);
+  }
+}
+
+.btn-success,
+.btn-danger {
+  color: $white;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active:focus {
+    color: $white;
+  }
+}
+
+.btn-success {
+  background-color: $primary;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active:focus {
+    background-color: darken($primary, 10);
+  }
+}
+.btn-danger {
+  background-color: $secondary;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active:focus {
+    background-color: darken($secondary, 10);
+  }
+}
+
+.btn-link {
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active:focus {
+    border-color: transparent;
+    background-color: transparent;
+    text-decoration: none;
   }
 }
 
