@@ -158,7 +158,8 @@ p + p {
   padding-top: 20px; }
 
 label {
-  color: #B4AEA1; }
+  color: #B4AEA1;
+  max-width: 40%; }
 
 .btn {
   box-shadow: 1px 1px 0px 0px #e2e3e6;

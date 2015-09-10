@@ -3,7 +3,6 @@
 
 // Variables
 
-
 $primary: #5E626B;
 $primary-dark: darken( $primary, 20 );
 $primary-light: lighten( $primary, 50 );
@@ -266,6 +265,7 @@ p + p {
 
 label {
   color: $secondary;
+  max-width: 40%;
 }
 
 .btn {

@@ -1,4 +1,6 @@
-$(document).ready(function() {
+/*jslint white: true */
+
+$(document).ready( function() {
 
     // SET-UP
 
@@ -6,174 +8,15 @@ $(document).ready(function() {
     var parentEl = $( '#pomodoro-clock' );
     var startButton = $( '#start-time' );
     var pauseButton = $( '#pause-time' );
+    var resetButton = $( '#reset-time' );
+
     var timerDisplay = $( '#timer' );
+
     var workTimeField = $( '#work-time' );
     var breakTimeField = $( '#break-time' );
 
-    // Hide pause button (until after timer started)
-    pauseButton.hide();
-
-    // Apply field styling (bootstrap-touchspin.js)
-
-    fieldStyling( 'work-time', 15, 30 );
-    fieldStyling( 'break-time', 5, 10 );
-
-    // Display minutes in timer
-    updateTimerDisplay( formatTime( convertToSeconds( workTimeField.prop( 'value' ) ) ) );
-
-    // Countdown function
-    // Accepts minutes int, timer name string and callback function
-    // Counts down time and displays time remaining at 1 second intervals until 0
-    function startTimer( minutes, name, callback ) {
-
-        console.log( 'startTimer started' );
-
-        // Add timer name to body class for styling purposes
-        $( 'body' ).addClass( name );
-
-        var seconds = convertToSeconds( minutes );
-
-        var interval = setInterval( function() {
-
-            // If the timer has the isPaused class, don't run interval
-            if( timerDisplay.hasClass( 'isPaused' ) ) {
-
-                console.log( 'Paused' );
-
-            } else {
-                
-                if( seconds === 0 ) {
-                    clearInterval(interval);
-
-                    playAudio();
-
-                    callback();
-
-                    return;
-                }
-                seconds--;
-
-
-                //$( '#timer' ).html( formatTime( seconds ) );
-                updateTimerDisplay( formatTime( seconds ) );
-
-                updatePercentDisplay( percentRemaining( convertToSeconds( minutes ), seconds ) );
-
-                //console.log( percentRemaining( convertToSeconds( minutes ), seconds ) );
-                
-            }
-
-        },
-        1000 );
-        return true;
-
-    }
-
-
-
-    // EVENT LISTENERS
-
-    // Start action
-    // Triggers start work timer, then start break timer
-    startButton.click( function() {
-
-        //console.log( 'Start click event' );
-
-        // Capture minute values of the work time and break time fields
-        var workMins = workTimeField.prop( 'value' );
-        var breakMins = breakTimeField.prop( 'value' );
-
-        // Set display to countdown state
-        countdownDisplay();
-
-        // Start the work countdown
-        startTimer( workMins, 'work-timer' , function() {
-
-            // Start the break countdown
-            startTimer( breakMins, 'break-timer' , function() {
-
-                // Reset display to intial state
-                resetDisplay();
-
-                return;
-            } )
-        } );
-    
-    } );
-
-    // Pause action
-    // Pauses counter
-    pauseButton.click( function( event ) {
-
-        //console.log( 'Pause click event' );
-
-        // Set display to pause state
-        pauseDisplay( $(this) );
-
-    } );
-
-    // Change action
-    // Updates display of work minutes
-    workTimeField.on( 'change', function( event ) {
-
-        //console.log( $( this ).prop( 'value' ) );
-
-        // Update formatted work minutes displayed in timer
-        updateTimerDisplay( formatTime( convertToSeconds( $( this ).prop( 'value' ) ) ) );
-
-    } );
-
-
 
     // HELPER FUNCTIONS
-
-    // Reset
-    // Sets display back to original state
-    function resetDisplay() {
-
-        // Display formatted work minutes displayed in timer
-        updateTimerDisplay( formatTime( convertToSeconds( workTimeField.prop( 'value' ) ) ) );
-
-        $( '#timer-inner' ).css( 'height', 0 + '%' );
-
-        // Display start button
-        startButton.show();
-
-        // Hide pause button
-        pauseButton.hide();
-
-        // Reenable field selectors
-        $( 'input' ).prop( 'disabled', false );
-
-    }
-
-    // Pause
-    // Sets display to paused state
-    function pauseDisplay( context ) {
-
-        // Toggle class on timer
-        timerDisplay.toggleClass( 'isPaused' );
-
-        // Toggle pause button class
-        context.toggleClass( 'isPaused btn-danger' );
-        
-    }
-
-    // Countdown
-    // Sets display to timer counting down state
-    function countdownDisplay() {
-
-        // Hide start button
-        startButton.hide();
-
-        // Show pause button
-        pauseButton.show();
-
-        // Disable the field selectors
-        $( 'input' ).prop( 'disabled', true );
-
-    }
-
 
     // Accept minutes
     // Return number of seconds
@@ -183,23 +26,9 @@ $(document).ready(function() {
 
         //console.log( 'convertToSeconds called' );
 
-        minutes = parseInt( minutes );
+        minutes = parseInt( minutes, 10 );
 
         return minutes * 60;
-
-    }
-
-    // Accepts minutes
-    // Return number of milliseconds
-    // Given 15 expect 900000
-    // Given 22 expect 1320000
-    function convertToMilliseconds( minutes ) {
-
-        //console.log( 'convertToMilliseconds called' );
-
-        minutes = parseInt( minutes );
-
-        return minutes * 60000;
 
     }
 
@@ -265,6 +94,178 @@ $(document).ready(function() {
             max: max
         });
     }
+
+    // DISPLAY FUNCTIONS
+
+    // Reset
+    // Sets display back to original state
+    function resetDisplay() {
+
+        // Display formatted work minutes displayed in timer
+        updateTimerDisplay( formatTime( convertToSeconds( workTimeField.prop( 'value' ) ) ) );
+
+        $( '#timer-inner' ).css( 'height', 0 + '%' );
+
+        // Display start button
+        startButton.show();
+
+        // Hide pause button
+        pauseButton.hide();
+
+        // Hide reset button
+        resetButton.hide();
+
+        // Reenable field selectors
+        $( 'input' ).prop( 'disabled', false );
+
+        // Apply field styling (bootstrap-touchspin.js)
+        fieldStyling( 'work-time', 15, 30 );
+        fieldStyling( 'break-time', 5, 10 );
+
+
+    }
+
+    // Pause
+    // Sets display to paused state
+    function pauseDisplay( context ) {
+
+        // Toggle class on timer
+        timerDisplay.toggleClass( 'isPaused' );
+
+        // Toggle pause button class
+        context.toggleClass( 'isPaused btn-danger' );
+        
+    }
+
+    // Countdown
+    // Sets display to timer counting down state
+    function countdownDisplay() {
+
+        // Hide start button
+        startButton.hide();
+
+        // Show pause button
+        pauseButton.show();
+
+        // Show reset button
+        resetButton.show();
+
+        // Disable the field selectors
+        $( 'input' ).prop( 'disabled', true );
+
+    }
+
+
+    // Countdown function
+    // Accepts minutes int, timer name string and callback function
+    // Counts down time and displays time remaining at 1 second intervals until 0
+    function startTimer( minutes, name, callback ) {
+
+        console.log( 'startTimer started' );
+
+        // Add timer name to body class for styling purposes
+        $( 'body' ).addClass( name );
+
+        var seconds = convertToSeconds( minutes );
+
+        var interval = setInterval( function() {
+
+            resetButton.click( function( event ) {
+
+                clearInterval( interval );
+                resetDisplay();
+
+            } );
+
+            // If the timer has the isPaused class, don't run interval
+            if( timerDisplay.hasClass( 'isPaused' ) ) {
+
+                console.log( 'Paused' );
+
+            } else {
+                
+                if( seconds === 0 ) {
+                    clearInterval( interval );
+
+                    playAudio();
+
+                    callback();
+
+                    return;
+                }
+                seconds--;
+
+                updateTimerDisplay( formatTime( seconds ) );
+
+                updatePercentDisplay( percentRemaining( convertToSeconds( minutes ), seconds ) );
+
+                //console.log( percentRemaining( convertToSeconds( minutes ), seconds ) );
+                
+            }
+
+        },
+        1000 );
+        return true;
+
+    }
+
+    // SET UP
+    resetDisplay();
+
+
+    // EVENT LISTENERS
+
+    // Start action
+    // Triggers start work timer, then start break timer
+    startButton.click( function() {
+
+        //console.log( 'Start click event' );
+
+        // Capture minute values of the work time and break time fields
+        var workMins = workTimeField.prop( 'value' );
+        var breakMins = breakTimeField.prop( 'value' );
+
+        // Set display to countdown state
+        countdownDisplay();
+
+        // Start the work countdown
+        startTimer( workMins, 'work-timer' , function() {
+
+            // Start the break countdown
+            startTimer( breakMins, 'break-timer' , function() {
+
+                // Reset display to intial state
+                resetDisplay();
+
+                return;
+            } );
+        } );
+    
+    } );
+
+    // Pause action
+    // Pauses counter
+    pauseButton.click( function( event ) {
+
+        //console.log( 'Pause click event' );
+
+        // Set display to pause state
+        pauseDisplay( $(this) );
+
+    } );
+
+    // Change action
+    // Updates display of work minutes
+    workTimeField.on( 'change', function( event ) {
+
+        //console.log( $( this ).prop( 'value' ) );
+
+        // Update formatted work minutes displayed in timer
+        updateTimerDisplay( formatTime( convertToSeconds( $( this ).prop( 'value' ) ) ) );
+
+    } );
+
+
 
 
 });
