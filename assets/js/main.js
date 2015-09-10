@@ -119,7 +119,7 @@ $(document).ready( function() {
         $( 'input' ).prop( 'disabled', false );
 
         // Apply field styling (bootstrap-touchspin.js)
-        fieldStyling( 'work-time', 15, 30 );
+        fieldStyling( 'work-time', 15, 60 );
         fieldStyling( 'break-time', 5, 10 );
 
         // Remove timer name body class for styling purposes
