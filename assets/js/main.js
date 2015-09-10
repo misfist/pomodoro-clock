@@ -23,6 +23,7 @@ $(document).ready(function() {
 
         console.log( 'startTimer started' );
 
+        // Add timer name to body class for styling purposes
         $( 'body' ).addClass( name );
 
         var seconds = convertToSeconds( minutes );
@@ -31,6 +32,7 @@ $(document).ready(function() {
 
         var interval = setInterval( function() {
 
+            // If the timer has the isPaused class, don't run interval
             if( timerDisplay.hasClass( 'isPaused' ) ) {
 
                 console.log( 'Paused' );
@@ -40,14 +42,22 @@ $(document).ready(function() {
                 if( seconds === 0 ) {
                     clearInterval(interval);
 
+                    playAudio();
+
                     callback();
 
                     return;
                 }
                 seconds--;
 
-                $( '#timer' ).html( formatTime( seconds ) );
 
+                //$( '#timer' ).html( formatTime( seconds ) );
+                updateTimerDisplay( formatTime( seconds ) );
+
+                updatePercentDisplay( percentRemaining( convertToSeconds( minutes ), seconds ) );
+
+                console.log( percentRemaining( convertToSeconds( minutes ), seconds ) );
+                
             }
 
         },
@@ -66,26 +76,23 @@ $(document).ready(function() {
 
         console.log( 'Start click event' );
 
+        // Capture minute values of the work time and break time fields
         var workMins = workTimeField.prop( 'value' );
+        var breakMins = breakTimeField.prop( 'value' );
 
-        // Disable the start button
-        // Hide start button
+        // Set display to countdown state
+        countdownDisplay();
 
-        //startButton.prop( 'disabled', true );
-        startButton.hide();
+        // var workMins = 1; // For testing
+        // var breakMins = 1;  // For testing
 
-        // Show pause button
-        pauseButton.show();
-
-        // Disable the field selectors
-        $( 'input' ).prop( 'disabled', true );
-
-        var workMins = 1; // For testing
-        var breakMins = 1;  // For testing
-
+        // Start the work countdown
         startTimer( workMins, 'work-timer' , function() {
+
+            // Start the break countdown
             startTimer( breakMins, 'break-timer' , function() {
 
+                // Reset display to intial state
                 resetDisplay();
 
                 return;
@@ -100,6 +107,7 @@ $(document).ready(function() {
 
         console.log( 'Pause click event' );
 
+        // Set display to pause state
         pauseDisplay( $(this) );
 
     } );
@@ -110,9 +118,11 @@ $(document).ready(function() {
 
         console.log( $( this ).prop( 'value' ) );
 
+        // Update formatted work minutes displayed in timer
         updateTimerDisplay( formatTime( convertToSeconds( $( this ).prop( 'value' ) ) ) );
 
     } );
+
 
 
     // HELPER FUNCTIONS
@@ -121,8 +131,10 @@ $(document).ready(function() {
     // Sets display back to original state
     function resetDisplay() {
 
-        // Display value of work time in timer
+        // Display formatted work minutes displayed in timer
         updateTimerDisplay( formatTime( convertToSeconds( workTimeField.prop( 'value' ) ) ) );
+
+        $( '#timer-inner' ).css( 'height', 0 + '%' );
 
         // Display start button
         startButton.show();
@@ -143,9 +155,25 @@ $(document).ready(function() {
         timerDisplay.toggleClass( 'isPaused' );
 
         // Toggle pause button class
-        context.toggleClass( 'isPaused' );
+        context.toggleClass( 'isPaused btn-danger' );
         
     }
+
+    // Countdown
+    // Sets display to timer counting down state
+    function countdownDisplay() {
+
+        // Hide start button
+        startButton.hide();
+
+        // Show pause button
+        pauseButton.show();
+
+        // Disable the field selectors
+        $( 'input' ).prop( 'disabled', true );
+
+    }
+
 
     // Accept minutes
     // Return number of seconds
@@ -198,6 +226,33 @@ $(document).ready(function() {
         console.log( 'updateTimerDisplay called' );
 
         return timerDisplay.html( timeString );
+
+    }
+
+    // Play audio
+    function playAudio() {
+
+       var audio = document.getElementById( 'audio' );
+
+       audio.play();
+
+    }
+
+    // Percent complete
+    // totalTime = 10, spentTime = 5 expect 50%
+    // totalTime = 12, spentTime = 3 expect 75%
+    function percentRemaining( totalTime, spentTime ) {
+
+        var timeRemaining = totalTime - spentTime;
+
+        return (timeRemaining / totalTime) * 100;
+
+    }
+
+    // Update timer percent display
+    function updatePercentDisplay( percentRemaining ) {
+
+        $( '#timer-inner' ).css( 'height', percentRemaining + '%' );
 
     }
 

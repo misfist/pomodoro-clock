@@ -76,6 +76,22 @@ section {
   #main-nav a:link {
     color: #fff; }
 
+.timer-outer {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: 5px solid #2F4550;
+  overflow: hidden; }
+  .timer-outer .timer-inner {
+    width: 100%;
+    background-color: gray; }
+  .timer-outer .counter-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
   #main-nav .navbar-nav {
