@@ -42,8 +42,13 @@ section:after, .container:after {
 
 h1,
 h2, .timer-outer .counter-text, .btn {
+  text-shadow: 1px 1px 1px #333;
+  text-shadow: -1px -1px -1px #e2e3e6; }
+
+h1,
+h2, .timer-outer .counter-text, .btn {
   font-family: "Roboto", "Helvetica", Arial, sans-serif;
-  color: #675B69; }
+  color: #e2e3e6; }
 
 body.work-timer, body.break-timer {
   -webkit-transition: background 2s linear;
@@ -58,11 +63,11 @@ body {
   transition: all 0.2s ease-in-out; }
 
 body {
-  background-color: #B9B9B9;
+  background-color: #2e3035;
   background-position: center center;
   background-size: cover; }
   body.work-timer {
-    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 100%, transparent 90%), url(http://sandbox.misfist.com/pomodoro-clock/assets/images/zen-garden.jpg); }
+    background-image: linear-gradient(90deg, rgba(46, 48, 53, 0.8) 100%, transparent 90%), url(http://sandbox.misfist.com/pomodoro-clock/assets/images/zen-garden.jpg); }
   body.break-timer {
     background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.7) 100%, transparent 90%), url(http://sandbox.misfist.com/pomodoro-clock/assets/images/relax.jpg); }
 
@@ -84,10 +89,10 @@ article {
   text-align: center; }
 
 #main-nav {
-  background-color: #675B69; }
+  background-color: #5E626B; }
   #main-nav a,
   #main-nav a:link {
-    color: #fff; }
+    color: #e2e3e6; }
 
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
@@ -119,21 +124,21 @@ article {
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  border: 5px solid #675B69;
+  border: 5px solid #e2e3e6;
   overflow: hidden; }
   .timer-outer .timer-inner {
     width: 100%;
-    background-color: rgba(160, 153, 138, 0.5); }
+    background-color: rgba(185, 185, 185, 0.5); }
   .timer-outer .counter-text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #675B69;
+    color: #e2e3e6;
     font-size: 40px; }
 
 footer {
-  background-color: #9A9C87;
+  background-color: #5E626B;
   padding-top: 10px;
   padding-bottom: 10px;
   color: #fff; }
@@ -153,17 +158,18 @@ p + p {
   padding-top: 20px; }
 
 label {
-  color: #6E7179; }
+  color: #B4AEA1; }
 
 .btn {
-  box-shadow: 1px 1px 0px 0px #B9B9B9;
+  box-shadow: 1px 1px 0px 0px #e2e3e6;
   transition: all 0.2s ease-in-out;
   font-size: 18px;
-  color: #333;
-  border-color: #675B69; }
+  color: #e2e3e6;
+  border-color: transparent;
+  background-color: #B9B9B9; }
   .btn a,
   .btn a:link {
-    color: #333; }
+    color: #e2e3e6; }
     .btn a:hover,
     .btn a:focus,
     .btn a:link:hover,
@@ -171,49 +177,74 @@ label {
       text-decoration: none; }
   .btn:hover,
   .btn:focus,
-  .btn:active {
-    color: #333;
-    border-color: #675B69; }
+  .btn:active,
+  .btn.active:hover,
+  .btn.active:focus,
+  .btn:active:hover,
+  .btn:active:focus {
+    color: #e2e3e6;
+    border-color: transparent; }
 
 .btn-success,
 .btn-danger {
-  color: #fff; }
+  color: #e2e3e6;
+  border-color: transparent; }
   .btn-success:hover,
   .btn-success:focus,
   .btn-success:active,
+  .btn-success.active:hover,
   .btn-success.active:focus,
+  .btn-success:active:hover,
+  .btn-success:active:focus,
   .btn-danger:hover,
   .btn-danger:focus,
   .btn-danger:active,
-  .btn-danger.active:focus {
-    color: #fff; }
+  .btn-danger.active:hover,
+  .btn-danger.active:focus,
+  .btn-danger:active:hover,
+  .btn-danger:active:focus {
+    color: #e2e3e6;
+    border-color: transparent; }
 
 .btn-success {
-  background-color: #675B69; }
+  background-color: #5E626B;
+  border-color: transparent; }
   .btn-success:hover,
   .btn-success:focus,
   .btn-success:active,
-  .btn-success.active:focus {
-    background-color: #4c434e; }
+  .btn-success.active:hover,
+  .btn-success.active:focus,
+  .btn-success:active:hover,
+  .btn-success:active:focus {
+    background-color: #464950;
+    border-color: transparent; }
 
 .btn-danger {
-  background-color: #6E7179; }
+  background-color: #5E626B;
+  border-color: transparent; }
   .btn-danger:hover,
   .btn-danger:focus,
   .btn-danger:active,
-  .btn-danger.active:focus {
-    background-color: #56585e; }
+  .btn-danger.active:hover,
+  .btn-danger.active:focus,
+  .btn-danger:active:hover,
+  .btn-danger:active:focus {
+    background-color: #464950;
+    border-color: transparent; }
 
 .btn-link {
-  border-color: transparent;
   background-color: transparent;
+  border-color: transparent;
   box-shadow: none; }
   .btn-link:hover,
   .btn-link:focus,
   .btn-link:active,
-  .btn-link.active:focus {
-    border-color: transparent;
+  .btn-link.active:hover,
+  .btn-link.active:focus,
+  .btn-link:active:hover,
+  .btn-link:active:focus {
     background-color: transparent;
+    border-color: transparent;
     text-decoration: none; }
 
 .list-inline li {
@@ -221,10 +252,10 @@ label {
   margin-left: 4px; }
 
 .copyleft {
-  color: #B9B9B9; }
+  color: #e2e3e6; }
   .copyleft a,
   .copyleft a:link {
-    color: #B9B9B9; }
+    color: #e2e3e6; }
 
 .navbar-brand,
 .navbar-inverse .navbar-brand {

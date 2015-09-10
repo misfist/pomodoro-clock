@@ -3,13 +3,14 @@
 
 // Variables
 
-$primary: #675B69;
-$primary-dark: #9A9C87;
-$primary-light: #B9B9B9;
-$secondary: #6E7179;
-$secondary-dark: #5E626B;
-$secondary-light: #B4AEA1;
-$tertiary:  #A0998A;
+
+$primary: #5E626B;
+$primary-dark: darken( $primary, 20 );
+$primary-light: lighten( $primary, 50 );
+$secondary: #B4AEA1;
+$secondary-dark: darken( $secondary, 20 );
+$secondary-light: lighten( $secondary, 20 );
+$tertiary: #B9B9B9;
 $accent: #675B69;
 
 $white: #fff;
@@ -21,7 +22,10 @@ $sans-serif: sans-serif;
 $heading: 'Roboto', 'Helvetica', Arial, sans-serif;
 $body-text: $sans-serif;
 
-$text-color: $black;
+$text-color: $primary-light;
+$header-color: $primary-light;
+$primary-background: $primary-dark;
+$secondary-background: $primary;
 
 
 // RWD BREAKPOINTS 
@@ -79,7 +83,8 @@ $lg: 1200px; //Large Devices Large Desktops and Up
 
 %header {
   font-family: $heading;
-  color: $primary;
+  color: $header-color;
+  @extend %text-shadow;
 }
 
 %fade-in {
@@ -98,14 +103,14 @@ body {
 }
 
 body {
-  background-color: $primary-light;
+  background-color: $primary-background;
 
   background-position: center center;
   background-size: cover;
 
   &.work-timer {
     @extend %fade-in;
-    background-image: linear-gradient(90deg, rgba($white, .5) 100%, transparent 90%), url(http://sandbox.misfist.com/pomodoro-clock/assets/images/zen-garden.jpg);
+    background-image: linear-gradient(90deg, rgba($primary-background, .8) 100%, transparent 90%), url(http://sandbox.misfist.com/pomodoro-clock/assets/images/zen-garden.jpg);
   }
   
   &.break-timer {
@@ -148,11 +153,11 @@ article {
 }
 
 #main-nav {
-  background-color: $primary;
+  background-color: $secondary-background;
 
   a,
   a:link {
-    color: $white;
+    color: $header-color;
   }
 }
 
@@ -212,7 +217,7 @@ article {
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  border: 5px solid $accent;
+  border: 5px solid $header-color;
   overflow: hidden;
 
   .timer-inner {
@@ -226,7 +231,7 @@ article {
     left: 50%;
     transform: translate(-50%,-50%);
     @extend %header;
-    color: $primary;
+    color: $header-color;
     font-size: 40px;
   }
 }
@@ -234,7 +239,7 @@ article {
 
 footer {
 
-  background-color: $primary-dark;
+  background-color: $secondary-background;
   padding-top: 10px;
   padding-bottom: 10px;
 
@@ -269,7 +274,8 @@ label {
   @extend %header;
   font-size: 18px;
   color: $text-color;
-  border-color: $primary;
+  border-color: transparent;
+  background-color: $tertiary;
 
   a,
   a:link {
@@ -282,53 +288,75 @@ label {
 
   &:hover,
   &:focus,
-  &:active {
+  &:active,
+  &.active:hover,
+  &.active:focus,
+  &:active:hover,
+  &:active:focus {
     color: $text-color;
-    border-color: $primary;
+    border-color: transparent;
     //transform: scale(1.1);
   }
 }
 
 .btn-success,
 .btn-danger {
-  color: $white;
+  color: $header-color;
+  border-color: transparent;
   &:hover,
   &:focus,
   &:active,
-  &.active:focus {
-    color: $white;
+  &.active:hover,
+  &.active:focus,
+  &:active:hover,
+  &:active:focus {
+    color: $header-color;
+    border-color: transparent;
   }
 }
 
 .btn-success {
-  background-color: $primary;
+  background-color: $secondary-background;
+  border-color: transparent;
   &:hover,
   &:focus,
   &:active,
-  &.active:focus {
-    background-color: darken($primary, 10);
+  &.active:hover,
+  &.active:focus,
+  &:active:hover,
+  &:active:focus {
+    background-color: darken($secondary-background, 10);
+    border-color: transparent;
   }
 }
 .btn-danger {
-  background-color: $secondary;
+  background-color: $secondary-background;
+  border-color: transparent;
   &:hover,
   &:focus,
   &:active,
-  &.active:focus {
-    background-color: darken($secondary, 10);
+  &.active:hover,
+  &.active:focus,
+  &:active:hover,
+  &:active:focus {
+    background-color: darken($secondary-background, 10);
+    border-color: transparent;
   }
 }
 
 .btn-link {
-  border-color: transparent;
   background-color: transparent;
+  border-color: transparent;
   box-shadow: none;
   &:hover,
   &:focus,
   &:active,
-  &.active:focus {
-    border-color: transparent;
+  &.active:hover,
+  &.active:focus,
+  &:active:hover,
+  &:active:focus {
     background-color: transparent;
+    border-color: transparent;
     text-decoration: none;
   }
 }

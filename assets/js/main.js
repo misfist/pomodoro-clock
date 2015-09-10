@@ -16,7 +16,6 @@ $(document).ready(function() {
     // Apply field styling (bootstrap-touchspin.js)
 
     fieldStyling( 'work-time', 15, 30 );
-
     fieldStyling( 'break-time', 5, 10 );
 
     // Display minutes in timer
@@ -33,8 +32,6 @@ $(document).ready(function() {
         $( 'body' ).addClass( name );
 
         var seconds = convertToSeconds( minutes );
-        // var milliseconds = convertToMilliseconds( minutes );
-        //var seconds = 10; // for testing
 
         var interval = setInterval( function() {
 
@@ -62,7 +59,7 @@ $(document).ready(function() {
 
                 updatePercentDisplay( percentRemaining( convertToSeconds( minutes ), seconds ) );
 
-                console.log( percentRemaining( convertToSeconds( minutes ), seconds ) );
+                //console.log( percentRemaining( convertToSeconds( minutes ), seconds ) );
                 
             }
 
@@ -80,7 +77,7 @@ $(document).ready(function() {
     // Triggers start work timer, then start break timer
     startButton.click( function() {
 
-        console.log( 'Start click event' );
+        //console.log( 'Start click event' );
 
         // Capture minute values of the work time and break time fields
         var workMins = workTimeField.prop( 'value' );
@@ -88,9 +85,6 @@ $(document).ready(function() {
 
         // Set display to countdown state
         countdownDisplay();
-
-        // var workMins = 1; // For testing
-        // var breakMins = 1;  // For testing
 
         // Start the work countdown
         startTimer( workMins, 'work-timer' , function() {
@@ -111,7 +105,7 @@ $(document).ready(function() {
     // Pauses counter
     pauseButton.click( function( event ) {
 
-        console.log( 'Pause click event' );
+        //console.log( 'Pause click event' );
 
         // Set display to pause state
         pauseDisplay( $(this) );
@@ -122,7 +116,7 @@ $(document).ready(function() {
     // Updates display of work minutes
     workTimeField.on( 'change', function( event ) {
 
-        console.log( $( this ).prop( 'value' ) );
+        //console.log( $( this ).prop( 'value' ) );
 
         // Update formatted work minutes displayed in timer
         updateTimerDisplay( formatTime( convertToSeconds( $( this ).prop( 'value' ) ) ) );
@@ -187,7 +181,7 @@ $(document).ready(function() {
     // Given 22 expect 1320
     function convertToSeconds( minutes ) {
 
-        console.log( 'convertToSeconds called' );
+        //console.log( 'convertToSeconds called' );
 
         minutes = parseInt( minutes );
 
@@ -201,7 +195,7 @@ $(document).ready(function() {
     // Given 22 expect 1320000
     function convertToMilliseconds( minutes ) {
 
-        console.log( 'convertToMilliseconds called' );
+        //console.log( 'convertToMilliseconds called' );
 
         minutes = parseInt( minutes );
 
@@ -216,7 +210,7 @@ $(document).ready(function() {
     // Given 2 expect :02
     function formatTime( seconds ) {
 
-        console.log( 'formatTime called' );
+        //console.log( 'formatTime called' );
 
         var minutes = ( Math.floor( seconds / 60 ).toString() > 0 ) ? Math.floor( seconds / 60 ).toString() : '';
         var seconds = seconds % 60;
@@ -229,7 +223,7 @@ $(document).ready(function() {
     // Render time to element
     function updateTimerDisplay( timeString ) {
 
-        console.log( 'updateTimerDisplay called' );
+        //console.log( 'updateTimerDisplay called' );
 
         return timerDisplay.html( timeString );
 
