@@ -1,0 +1,171 @@
+$(document).ready(function() {
+
+    // Accepts minutes
+    // Side effect: counts down and updates display
+    function startTimer( minutes ) {
+
+        console.log( 'startTimer started' );
+
+        var startTime = new Date().getTime();
+        //var minutes = minutes;
+        var seconds = convertToSeconds( minutes );
+        var milliseconds = convertToMilliseconds( minutes );
+        
+        var interval = setInterval( function(){
+
+            if( new Date().getTime() - startTime > milliseconds ) {
+
+                clearInterval(interval);
+
+                return;
+            }
+
+            seconds--;
+
+            updateTimerDisplay( formatTime( seconds ) );
+
+        }, 1000 );
+
+        return true;
+
+    }
+
+    // Accepts number and callback function
+    // Side effects: disables timer button, starts work timer and callsback
+    function workTimer( minutes, callback ) {
+
+        console.log( 'workTimer started' );
+
+        $( '#timer' ).prop( 'disabled', true );
+
+        startTimer( minutes );
+
+    }
+
+    // Accepts number
+    // Side effects: starts break timer and reenables button
+    function breakTimer( minutes ) {
+
+        console.log( 'breakTimer started' );
+        
+        startTimer( minutes );
+
+        $( '#timer' ).prop( 'disabled', false );
+
+    }
+
+    //workTimer( minutes, breakTimer( minutes ) );
+
+    // Accepts number for work minutes and break minutes
+    // Side effects: calls work time function, then break time function
+    // function startChainedTimers( workMinutes, breakMinutes ) {
+
+    //     console.log( 'startChainedTimers started' );
+
+    //     workTimer( workMinutes, breakTimer( breakMinutes ) );
+
+    // }
+
+    // Accept minutes
+    // Return number of seconds
+    function convertToSeconds( minutes ) {
+
+        console.log( 'convertToSeconds called' );
+
+        minutes = parseInt( minutes );
+
+        return minutes * 60;
+
+    }
+
+    // Accepts minutes
+    // Return number of milliseconds
+    function convertToMilliseconds( minutes ) {
+
+        console.log( 'convertToMilliseconds called' );
+
+        minutes = parseInt( minutes );
+
+        return minutes * 60000;
+
+    }
+
+    // Accept number of seconds
+    // Returns formatted number and seconds, separated by colon, as string
+    // Example: 1260 seconds => 21:00
+    // Example: 713 seconds => 11:53
+    // Example: 2 seconds => :02
+    function formatTime( seconds ) {
+
+        console.log( 'formatTime called' );
+
+        var minutes = ( Math.floor( seconds / 60 ).toString() > 0 ) ? Math.floor( seconds / 60 ).toString() : '';
+        var seconds = seconds % 60;
+
+        return minutes + ':' + ("0" + seconds).slice(-2);
+
+    }
+
+    // Accept time
+    // Count down every second
+    //function setTimer( time ) {}
+
+    // Accept time input
+    // Render time to element
+    function updateTimerDisplay( timeString ) {
+
+        console.log( 'updateTimerDisplay called' );
+
+        return timerEl.html( timeString );
+
+    }
+
+    //Pick session time
+    var workTimeEl = $( '#work-time' );
+
+    //Pick break time
+    var breakTimeEl = $( '#break-time' );
+
+    //Start clock
+    var startButton = $( '#start-time' );
+
+    //Deactive once clock started
+
+    //Count down
+    var timerEl = $( '#timer' );
+
+    // Render initial work time
+    //updateTimer( workTimeEl.prop( 'value' ) );
+
+    startButton.click( function() {
+
+        console.log( 'click event' );
+
+        //var minutes = workTimeEl.prop( 'value' );
+        var workMins = 1; // For testing
+        var breakMins = 2;  // For testing
+
+        // Start timer
+        //workTimer( workMins );
+
+        $.when( startTimer( workMins )  ).done( function() {
+             startTimer( breakMins );
+        } );
+    
+    } );
+
+    // On change
+    workTimeEl.on( 'change', function( event ) {
+
+        // var timeInSeconds = convertToSeconds( workTimeEl.prop( 'value' ) );
+        // var formattedTime = formatTime( 2 );
+
+        // console.log( 'in onChange event formattedTime', formattedTime );
+
+        // updateTimerDisplay( formatTime );
+
+    } );
+
+
+
+});

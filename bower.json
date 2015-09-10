@@ -1,0 +1,26 @@
+{
+  "name": "pomodoro-clock",
+  "version": "0.0.1",
+  "authors": [
+    "Pea <pea@misfist.com>"
+  ],
+  "description": "Pomodoro clock built with jQuery and Bootstrap (http://freecodecamp.com/challenges/zipline-build-a-pomodoro-clock)",
+  "main": "index.html",
+  "keywords": [
+    "clock",
+    "jQuery"
+  ],
+  "license": "GPLv3",
+  "homepage": "https://github.com/misfist/pomodoro-clock",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.10.6"
+  }
+}

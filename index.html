@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Pomodoro Clock</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pomodoro clock built with jQuery and Bootstrap.">
+    
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet'>    
+
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+
+  <body>
+    <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+              <h1 class="navbar-brand">Pomodoro Clock</h1>
+            </div>
+
+            <div class="collapse navbar-collapse" id="main-navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="https://twitter.com/misfist" target="_blank"><span class="fa fa-twitter"></span> Twitter</a></li>
+                <li><a href="https://www.linkedin.com/in/patricialutz" target="_blank"><span class="fa fa-linkedin"></span> LinkedIn</a></li>
+                <li><a href="https://github.com/misfist" target="_blank"><span class="fa fa-github"></span> GitHub</a></li>
+                <li><a href="http://www.freecodecamp.com/misfist" target="_blank"><span class="fa fa-fire"></span> freeCodeCamp</a></li>
+              </ul>
+            </div>
+        </div>
+    </nav>
+    <section id="home">
+      <div class="container">
+        <header class="text-center" role="banner">
+          <h1>Pomodoro Clock</h1>
+        </header>
+        <article id="pomodoro-clock">
+
+          <label for="break-time">Break Time <input type="number" id="break-time" class="form-control" name="break-time" value="1" min="1" max="10"></label>
+
+          <label for="work-time">Work Session <input type="number" id="work-time"  class="form-control" name="work-time" value="1" min="1" max="30"></label>
+
+          <div id="timer"></div>
+
+          <button id="start-time" class="btn btn-danger"><i class="fa fa-play"></i> Start</button>
+          <button id="pause-time" class="btn"><i class="fa fa-pause"></i> Pause</button>
+
+        </article>
+      </div>
+    </section>
+    <footer id="site-footer" class="navbar-fixed-bottom">
+      <div class="container">
+         <nav class="footer-nav pull-right">
+          <ul class="list-inline">
+            <li><a href="https://twitter.com/misfist" target="_blank"><span class="fa fa-twitter"></span> Twitter</a></li>
+            <li><a href="https://www.linkedin.com/in/patricialutz" target="_blank"><span class="fa fa-linkedin"></span> LinkedIn</a></li>
+            <li><a href="https://github.com/misfist" target="_blank"><span class="fa fa-github"></span> GitHub</a></li>
+            <li><a href="http://www.freecodecamp.com/misfist" target="_blank"><span class="fa fa-fire"></span> freeCodeCamp</a></li>
+          </ul>
+        </nav>
+        <div class="copyleft"><span class="fa fa-copyright fa-flip-horizontal"></span> Copyleft &bull; <a href="https://github.com/misfist/pomodoro-clock" target="_blank"><i class="fa fa-github"></i> Source</a></div>
+      </div>
+    </footer>
+      <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <script src="assets/vendor/countdown/countdown.js"></script>
+      <script src="assets/js/main.js"></script>
+      </body>
+</html>
