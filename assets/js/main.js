@@ -122,6 +122,9 @@ $(document).ready( function() {
         fieldStyling( 'work-time', 15, 30 );
         fieldStyling( 'break-time', 5, 10 );
 
+        // Remove timer name body class for styling purposes
+        $( 'body' ).removeClass();
+
 
     }
 
